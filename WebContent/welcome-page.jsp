@@ -18,7 +18,7 @@
 <h3>Welcome  ${userName}</h3>
 
 <a href="employee">Employee Page</a>
-<a href="customer">Costumer Page</a>
+<a href="customer">Customer Page</a>
 
 </body>
 </html>
