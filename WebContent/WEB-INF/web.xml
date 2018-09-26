@@ -13,19 +13,20 @@
     <listener-class>listener.MainBeanListener</listener-class>
   </listener>
   <servlet>
-  	<servlet-name>employee</servlet-name>
-  	<jsp-file>/employeeView.jsp</jsp-file>
+    <servlet-name>employee</servlet-name>
+    <jsp-file>/employeeView.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>employee</servlet-name>
-  	<url-pattern>/employee</url-pattern>
+    <servlet-name>employee</servlet-name>
+    <url-pattern>/employee</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>customer</servlet-name>
-  	<jsp-file>/customerView.jsp</jsp-file>
+    <servlet-name>customer</servlet-name>
+    <jsp-file>/customerView.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>customer</servlet-name>
-  	<url-pattern>/customer</url-pattern>
+    <servlet-name>customer</servlet-name>
+    <url-pattern>/customer</url-pattern>
   </servlet-mapping>
+  
 </web-app>

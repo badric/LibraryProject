@@ -17,6 +17,9 @@
 	<br>
 	<div class="g-signin2" data-onsuccess="onSignIn"></div>
 
+<form name="frm" action="index" method="post">
+	<input type="submit" name="bt" value="Get">
+</form>
 	<script>
 	function onSignIn(googleUser) {
       var profile = googleUser.getBasicProfile();

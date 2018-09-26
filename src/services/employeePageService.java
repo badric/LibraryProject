@@ -12,26 +12,23 @@ import javax.servlet.http.HttpServletResponse;
 import db.DBConnector;
 
 /**
- * Servlet implementation class mainPageService
+ * Servlet implementation class employeePageService
  */
-@WebServlet("/index")
-public class mainPageService extends HttpServlet {
+@WebServlet("/employeePageService")
+public class employeePageService extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public employeePageService() {
+        super();
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public mainPageService() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Ich Gette tolle sachen ahaaaa");
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 
@@ -47,27 +44,27 @@ public class mainPageService extends HttpServlet {
 
 		switch (button) {
 		case "Update":
-			String temp = "{\"bookObj\":{\"title\":\"Herr der Ringe2\", \"Autor\":\"JRR Tolkien\"}}";
-			System.out.println("TEMP: " + temp);
-			db.writeBookIntoDB(temp);
+			//String temp = "{\"bookObj\":{\"title\":\"Herr der Ringe2\", \"Autor\":\"JRR Tolkien\"}}";
+//			System.out.println("TEMP: " + temp);
+//			db.writeBookIntoDB(temp);
 			break;
 		case "Get":
-			System.out.println("GEEEEEET");
 			db.getAllBooks();
 		default:
 			return;
 		}
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Ich Poste tolle sachen ahaaaa");
-
 		doGet(request, response);
 	}
 
+	
+	
+	
 }

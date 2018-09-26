@@ -10,6 +10,8 @@ import java.sql.Date;
 import java.util.Vector;
 import com.google.gson.*;
 
+import model.Book;
+
 public class DBConnector {
 
 	Connection connection;
@@ -86,49 +88,4 @@ public class DBConnector {
 		return false;
 	}
 
-	public class Book {
-
-		BookObj bookObj;
-		// int id;
-
-		Book() {
-
-		}
-
-		Book(BookObj bookObj) {
-			this.bookObj = bookObj;
-		}
-
-		public String getTitle() {
-			return bookObj.getTitle();
-		}
-		
-		public String getAutor() {
-			return bookObj.getAutor();
-		}
-	}
-	
-	public class BookObj {
-
-		String title, autor;
-		// int id;
-
-		BookObj() {
-
-		}
-
-		BookObj(String title, String autor) {
-			this.title = title;
-
-			this.autor = autor;
-		}
-
-		public String getTitle() {
-			return title;
-		}
-		
-		public String getAutor() {
-			return autor;
-		}
-	}
 }

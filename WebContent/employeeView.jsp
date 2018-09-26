@@ -14,5 +14,48 @@
 
 </div>
 
+<table id="">
+	<thead>
+		<tr>
+			<th scope="col" id="title">Title</th>
+			<th scope="col" id="autor">Autor</th>
+			<th scope="col" id="year">Erscheinungsjahr</th>
+			<th scope="col" id="ISBN">ISBN</th>
+			<th scope="col" id="price">Preis</th>
+			<th scope="col" id="age">Alter</th>
+		</tr>
+	</thead>
+	
+	<tfoot>
+		<tr>
+			<td></td>
+		</tr>
+	</tfoot>
+	
+	
+	<tbody>
+		<% 
+		
+		%>
+		<tr>
+			<%
+			
+			%>
+			<td>
+				<%
+				
+				%>
+			</td>
+			<%
+			
+			%>
+		</tr>
+		<%
+		
+		%>
+	</tbody>
+	
+</table>
+
 </body>
 </html>
