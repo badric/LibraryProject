@@ -6,11 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Date;
-import java.util.Vector;
 import com.google.gson.*;
 
 import model.Book;
+import model.User;
 
 public class DBConnector {
 
@@ -19,7 +18,7 @@ public class DBConnector {
 	public boolean connectToMySQL(String host, String database, String user, String pw) {
 
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			String connectCmd = "jdbc:mysql://" + host + "/" + database + "?user=" + user + "&password=" + pw;
 			connection = DriverManager.getConnection(connectCmd);
 			return true;
@@ -88,4 +87,69 @@ public class DBConnector {
 		return false;
 	}
 
+	public User getUser(String name) throws SQLException {
+		User u = null;
+
+		Statement statement = connection.createStatement();
+		String sqlQuery = "select * from user";
+
+		// Iterate through all users and get the user with the surname
+		ResultSet rs = statement.executeQuery(sqlQuery);
+		while (rs.next()) {
+			String json = rs.getString("userObj");
+			// System.out.println("JSON: " + json);
+			Gson gson = new GsonBuilder().create();
+			u = gson.fromJson(json, User.class);
+			// System.out.println(u.getSurname());
+
+			if (u.getName().equals(name)) {
+				System.out.println("User found: " + u.getName() + " " + u.getSurname());
+				break;
+			}
+		}
+
+		rs.close();
+		statement.close();
+		return u;
+	}
+
+	public Book getBook(int bookId) throws SQLException {
+		Book b = null;
+
+		String sqlQuery = "select * from book where idbook = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+		preparedStatement.setInt(1, bookId);
+
+		ResultSet rs = preparedStatement.executeQuery();
+
+		if (rs.next()) {
+			String json = rs.getString("bookObj");
+			Gson gson = new GsonBuilder().create();
+			b = gson.fromJson(json, Book.class);
+		}
+
+		rs.close();
+		preparedStatement.close();
+
+		return b;
+	}
+
+	public boolean updateUser(User newUser, String oldUserObj) throws SQLException {
+		String sqlQuery = "update user set userObj = ? where userObj = ?";
+		PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+
+		Gson gson = new GsonBuilder().create();
+		String userObj = gson.toJson(newUser);
+
+		System.out.println("Old Object: " + oldUserObj);
+		System.out.println("New Object: " + userObj);
+
+		preparedStatement.setString(1, userObj);
+		preparedStatement.setString(2, oldUserObj);
+
+		boolean updated = preparedStatement.executeUpdate() > 0;
+		preparedStatement.close();
+
+		return updated;
+	}
 }

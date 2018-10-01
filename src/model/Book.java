@@ -2,22 +2,11 @@ package model;
 
 public class Book {
 	String title, autor, year, isbn, age, price;
-	// int id;
-
-	Book() {
-
-	}
-
-//	Book(String title, String autor) {
-//		this.title = title;
-//
-//		this.autor = autor;
-//	}
 
 	public String getTitle() {
 		return title;
 	}
-	
+
 	public String getAutor() {
 		return autor;
 	}
