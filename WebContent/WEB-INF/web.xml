@@ -16,12 +16,12 @@
 		<listener-class>listener.MainBeanListener</listener-class>
 	</listener>
 	<servlet>
-		<servlet-name>EmployeeServlet</servlet-name>
-		<servlet-class>services.employeePageService</servlet-class>
-	</servlet>
+		<servlet-name>employeePageService</servlet-name>
+    	<servlet-class>services.employeePageService</servlet-class>
+    </servlet>
 	<servlet-mapping>
-		<servlet-name>EmployeeServlet</servlet-name>
-		<url-pattern>/employee</url-pattern>
+		<servlet-name>employeePageService</servlet-name>
+    	<url-pattern>/employee</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -31,6 +31,6 @@
 
 	<servlet-mapping>
 		<servlet-name>CustomerServlet</servlet-name>
-		<url-pattern>/customer/*</url-pattern>
+		<url-pattern>/customer</url-pattern>
 	</servlet-mapping>
 </web-app>
