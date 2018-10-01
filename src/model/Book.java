@@ -4,7 +4,7 @@ public class Book {
 	String title, autor, year, isbn, age, price;
 	// int id;
 
-	Book() {
+	public Book() {
 
 	}
 

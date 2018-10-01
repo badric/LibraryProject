@@ -7,10 +7,15 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 import com.google.gson.*;
 
 import model.Book;
+import model.User;
 
 public class DBConnector {
 
@@ -51,28 +56,82 @@ public class DBConnector {
 
 		return false;
 	}
-
-	public boolean getAllBooks() {
+	
+	public boolean writeUserIntoDB(String userAsJSON) {
 		try {
-			System.out.println("All Books");
+			System.out.println("Trying to write into DB");
 
+			String sqlQuery = "INSERT INTO User VALUES (default, ?)";
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+			preparedStatement.setString(1, userAsJSON);
+			preparedStatement.executeUpdate();
+
+			// ResultSet rs = statement.executeQuery();
+			System.out.println("Wrote into DB");
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println("Exception: " + e.getMessage());
+		}
+
+		return false;
+	}
+
+	public Map<Integer, Book> getAllBooks() {
+		
+		Map<Integer, Book> allListedBooks = new HashMap<Integer, Book>();
+		
+		try {
+			//System.out.println("All Books");
+			
 			Statement statement = connection.createStatement();
 			String sqlQuery = "select * from book";
 
 			ResultSet rs = statement.executeQuery(sqlQuery);
+
 			while (rs.next()) {
 				String json = rs.getString("bookObj");
-				System.out.println("JSON: " + json);
+				Integer i = rs.getInt("idbook");
+				//System.out.println("JSON: " + json);
 				Gson gson = new GsonBuilder().create();
 				Book b = gson.fromJson(json, Book.class);
-				System.out.println(b.getTitle());
+				allListedBooks.put(i, b);
 			}
 
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		}
 
-		return false;
+		return allListedBooks;
+	}
+	
+	public Map<Integer, User> getAllUsers() {
+		
+		Map<Integer, User> allListedUsers = new HashMap<Integer, User>();
+		
+		try {
+			//System.out.println("All Books");
+			
+			Statement statement = connection.createStatement();
+			String sqlQuery = "select * from User";
+
+			ResultSet rs = statement.executeQuery(sqlQuery);
+			
+			
+			while (rs.next()) {
+				String json = rs.getString("userObj");
+				Integer i = rs.getInt("idUser");
+				//System.out.println("JSON: " + json);
+				Gson gson = new GsonBuilder().create();
+				User u = gson.fromJson(json, User.class);
+				allListedUsers.put(i, u);
+			}
+
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+
+		return allListedUsers;
 	}
 
 	public boolean closeDBConnection() {
@@ -86,6 +145,45 @@ public class DBConnector {
 		}
 
 		return false;
+	}
+
+	public <T extends Object> T get(String table, int id, Class<T> type) {
+		
+		try {
+			//System.out.println("All Books");
+			
+			Statement statement = connection.createStatement();
+			String sqlQuery = "select * from "+table+" Where id"+table+" = "+id;
+
+			ResultSet rs = statement.executeQuery(sqlQuery);
+
+			while (rs.next()) {
+				String json = rs.getString("bookObj");
+				
+				Gson gson = new GsonBuilder().create();
+				return type.cast(gson.fromJson(json, type.getClass()));
+			}
+
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
+
+		return null;
+	}
+
+	public void delete(String table, int id) {
+		try {
+			//System.out.println("All Books");
+			
+			Statement statement = connection.createStatement();
+			String sqlQuery = "delete from "+table+" Where id"+table+" = "+id;
+			System.out.println(sqlQuery);
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+			preparedStatement.executeUpdate();
+
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+		}
 	}
 
 }

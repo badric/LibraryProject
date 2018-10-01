@@ -13,11 +13,11 @@
     <listener-class>listener.MainBeanListener</listener-class>
   </listener>
   <servlet>
-    <servlet-name>employee</servlet-name>
-    <jsp-file>/employeeView.jsp</jsp-file>
+    <servlet-name>employeePageService</servlet-name>
+    <servlet-class>services.employeePageService</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>employee</servlet-name>
+    <servlet-name>employeePageService</servlet-name>
     <url-pattern>/employee</url-pattern>
   </servlet-mapping>
   <servlet>
