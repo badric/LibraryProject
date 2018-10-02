@@ -1,0 +1,37 @@
+table {
+	table-layout: fixed;
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid #0000ff;
+}
+
+thead {
+	text-align: center;
+	background-color: #167F92;
+	color: white;
+}
+
+tbody td {
+	text-align: center;
+}
+
+tbody tr:nth-child(odd) {
+	background-color: #cce6ff;
+}
+
+tbody tr:nth-child(even) {
+	background-color: white;
+}
+
+th, td {
+	padding: 20px;
+}
+
+input[type=button] {
+	font-size: 16px;
+	border: 1px solid #00ffff;
+	border-radius: 10px;
+	background-color: #7777ff;
+	color: white;
+}
+}

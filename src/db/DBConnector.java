@@ -8,10 +8,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+
 import com.google.gson.*;
 
 import model.Book;
 import model.User;
+import javafx.util.Pair;
 
 public class DBConnector {
 
@@ -142,30 +145,32 @@ public class DBConnector {
 		return false;
 	}
 
-	public User getUser(String name) throws SQLException {
+	public Pair<Integer, User> getUser(String name) throws SQLException {
 		User u = null;
+		int id = -1;
+		Pair<Integer, User> uId = null;
 
 		Statement statement = connection.createStatement();
 		String sqlQuery = "select * from user";
 
-		// Iterate through all users and get the user with the surname
+		// Iterate through all users and get the user with the name specified by gmail account
 		ResultSet rs = statement.executeQuery(sqlQuery);
 		while (rs.next()) {
 			String json = rs.getString("userObj");
-			// System.out.println("JSON: " + json);
 			Gson gson = new GsonBuilder().create();
 			u = gson.fromJson(json, User.class);
-			// System.out.println(u.getSurname());
-
+			
 			if (u.getName().equals(name)) {
-				System.out.println("User found: " + u.getName() + " " + u.getSurname());
+				id = rs.getInt(1);
+				System.out.println("User found: " + u.getName() + " " + u.getSurname() + " with Id: " + id);
+				uId = new Pair<Integer, User>(id, u);
 				break;
 			}
 		}
 
 		rs.close();
 		statement.close();
-		return u;
+		return uId;
 	}
 
 	public Book getBook(int bookId) throws SQLException {
@@ -189,18 +194,17 @@ public class DBConnector {
 		return b;
 	}
 
-	public boolean updateUser(User newUser, String oldUserObj) throws SQLException {
-		String sqlQuery = "update user set userObj = ? where userObj = ?";
+	public boolean updateUser(User newUser, int id) throws SQLException {
+		String sqlQuery = "update user set userObj = ? where idUser = ?";
 		PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
 
 		Gson gson = new GsonBuilder().create();
 		String userObj = gson.toJson(newUser);
 
-		System.out.println("Old Object: " + oldUserObj);
-		System.out.println("New Object: " + userObj);
+		System.out.println("New User: " + userObj);
 
 		preparedStatement.setString(1, userObj);
-		preparedStatement.setString(2, oldUserObj);
+		preparedStatement.setInt(2, id);
 
 		boolean updated = preparedStatement.executeUpdate() > 0;
 		preparedStatement.close();
@@ -235,8 +239,6 @@ public class DBConnector {
 	public void delete(String table, int id) {
 		try {
 			// System.out.println("All Books");
-
-			Statement statement = connection.createStatement();
 			String sqlQuery = "delete from " + table + " Where id" + table + " = " + id;
 			System.out.println(sqlQuery);
 			PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
@@ -245,5 +247,27 @@ public class DBConnector {
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
 		}
+	}
+
+	public Map<Integer, Book> listAvailableBooks() {
+		Map<Integer, User> allListedUsers = getAllUsers();
+		Map<Integer, Book> mapAvailable = getAllBooks();
+
+		for (User u : allListedUsers.values()) {
+			System.out.println("User B-Books: " + u.getBookIds());
+			u.getBookIds().forEach(id -> mapAvailable.remove(id));
+		}
+		return mapAvailable;
+	}
+
+	public Map<Integer, Book> listBorrowedBooks(User u) throws SQLException {
+		HashMap<Integer, Book> mapIds = new HashMap<>();
+		List<Integer> bookIds = u.getBookIds();
+		for (int id : bookIds) {
+			Book b = getBook(id);
+			mapIds.put(id, b);
+		}
+
+		return mapIds;
 	}
 }
