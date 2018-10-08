@@ -4,15 +4,15 @@ import java.util.List;
 
 public class User {
 
-	List<Book> books;
+	List<Integer> bookIds;
 	String name, surname, age;
 
-	public List<Book> getBooks() {
-		return books;
+	public List<Integer> getBookIds() {
+		return bookIds;
 	}
 
-	public void setBooks(List<Book> books) {
-		this.books = books;
+	public void setBookIds(List<Integer> bookIds) {
+		this.bookIds = bookIds;
 	}
 
 	public String getName() {
