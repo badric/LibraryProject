@@ -2,7 +2,9 @@ package services;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -57,7 +59,7 @@ public class CustomerPageService extends HttpServlet {
 		System.out.println("The name is: " + name);
 
 		try {
-			Pair<Integer, User> uId = db.getUser(name);
+			Map.Entry<Integer, User> uId = db.getUser(name);
 			if (uId == null) {
 				// TODO Add new user in database
 				System.out.println("No user found!");
@@ -111,7 +113,10 @@ public class CustomerPageService extends HttpServlet {
 				try {
 					if (db.getBook(addId) != null) {
 						System.out.println("Borrowing Book with id: " + addId);
-						u.getBookIds().add(addId);
+						if (u.getBookIds() != null)
+							u.getBookIds().add(addId);
+						else
+							u.setBookIds(Arrays.asList(addId));
 						db.updateUser(u, id);
 					}
 				} catch (SQLException e) {

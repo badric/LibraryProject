@@ -1,6 +1,7 @@
 package services;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,7 +118,13 @@ public class employeePageService extends HttpServlet {
 		case "Edit Book":
 			id = Integer.parseInt(request.getParameter("bookID"));
 			
-			Book book = db.getBook(id);
+			Book book = null;
+			try {
+				book = db.getBook(id);
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			request.setAttribute("book", book);
 			request.setAttribute("id", id);
 			

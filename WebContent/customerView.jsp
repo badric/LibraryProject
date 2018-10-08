@@ -52,8 +52,8 @@
 							<th>Author</th>
 							<th>Year</th>
 							<th>ISBN</th>
-							<th>Age</th>
 							<th>Price</th>
+							<th>Age</th>
 							<th></th>
 						</tr>
 					</thead>
@@ -91,8 +91,8 @@
 							<th>Author</th>
 							<th>Year</th>
 							<th>ISBN</th>
-							<th>Age</th>
 							<th>Price</th>
+							<th>Age</th>
 							<th></th>
 						</tr>
 					</thead>

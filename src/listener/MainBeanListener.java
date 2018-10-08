@@ -23,7 +23,7 @@ public class MainBeanListener implements ServletContextListener {
 
 		System.out.println("Starting DB Connectivity");
 		DBConnector db = new DBConnector();
-		boolean connected = db.connectToMySQL("localhost:3306", "library", "root", "root");
+		boolean connected = db.connectToMySQL("localhost:3306", "library", "root", "");
 		if (connected)
 			System.out.println("Finished DB Connectivity: Connected");
 		else
