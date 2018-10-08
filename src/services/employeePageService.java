@@ -113,11 +113,51 @@ public class employeePageService extends HttpServlet {
 			id = Integer.parseInt(request.getParameter("userID"));
 			db.delete("User", id);
 			System.out.println("Trying to delete User " +id);
-break;
-		case "Get":
-			books = db.getAllBooks();
-			request.setAttribute("books", books);
-			request.getRequestDispatcher("employeeView.jsp").forward(request, response);
+			break;
+		case "Edit Book":
+			id = Integer.parseInt(request.getParameter("bookID"));
+			
+			Book book = db.getBook(id);
+			request.setAttribute("book", book);
+			request.setAttribute("id", id);
+			
+//			response.sendRedirect("http://localhost:8080/LibraryProject/editBook");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("editBookPage.jsp");
+			dispatcher.forward(request, response);
+			return;
+		case "Edit User":
+			id = Integer.parseInt(request.getParameter("userID"));
+			
+			User user = db.getUser(id);
+			request.setAttribute("user", user);
+			request.setAttribute("id", id);
+			
+			dispatcher = request.getRequestDispatcher("editUserPage.jsp");
+			dispatcher.forward(request, response);
+			return;
+		case "Save Edited Book":
+			id = Integer.parseInt(request.getParameter("bookID"));
+			title = request.getParameter("title");
+			autor = request.getParameter("autor");
+			year = request.getParameter("year");
+			age = request.getParameter("age");
+			isbn = request.getParameter("isbn");
+			price = request.getParameter("price");
+			System.out.println("{\"title\":\""+title+"\", \"autor\":\""+autor+"\", \"year\":\""+year+"\", \"age\":\""+age+"\", \"isbn\":\""+isbn+"\", \"price\":\""+price+"\"}");
+			newBook = "{\"title\":\""+title+"\", \"autor\":\""+autor+"\", \"year\":\""+year+"\", \"age\":\""+age+"\", \"isbn\":\""+isbn+"\", \"price\":\""+price+"\"}";
+			
+			db.updateBookInDB(id,newBook);
+			break;
+		case "Save Edited User":
+			id = Integer.parseInt(request.getParameter("userID"));
+			name = request.getParameter("name");
+			surname = request.getParameter("surname");
+			userAge = request.getParameter("age");
+			System.out.println("{\"name\":\""+name+"\", \"surname\":\""+surname+"\", \"age\":\""+userAge+"\"}");
+			newUser = "{\"name\":\""+name+"\", \"surname\":\""+surname+"\", \"age\":\""+userAge+"\"}";
+			
+			db.updateUserInDB(id, newUser);
+			break;
 		default:
 			return;
 		}

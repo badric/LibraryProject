@@ -11,16 +11,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Employee View</title>
 <link type="text/css" rel="stylesheet" href="resources/css/Table.css" />
+<link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
 </head>
 
 
 <body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<%
+String mainPage = "welcome-page.jsp";
+%>
+<button id="newButton" type="button" class="btn btn-primary btn-circle btn-lg" type="button" onclick="JavaScript:window.location='<%= mainPage %>'" style="margin: 45px; margin-top:0px;"> 
+	<i class="glyphicon glyphicon-arrow-left"></i>
+</button><br></br>
 
 <div style="float: left;">
 <%
 String newBookPage = "newBookPage.jsp";
 %>
-<input type="button" value="New Book" onclick="JavaScript:window.location='<%= newBookPage %>'" style="margin: 45px; margin-bottom:0px; width: 750px;"/>
+
+<button id="newButton" type="button" class="btn btn-primary btn-circle btn-lg" type="button" onclick="JavaScript:window.location='<%= newBookPage %>'" style="margin: 45px; margin-bottom:0px;"> 
+	<i class="glyphicon glyphicon-plus"></i>
+</button>
 
 <table id="hor-minimalist" style="display: inlineBlock;">
 	<thead>
@@ -47,8 +59,8 @@ String newBookPage = "newBookPage.jsp";
 			<td>
 				<form action="employee" method="post" >
 					<input type="hidden" name="bookID" id="bookID" value="${entry.key}" />
-					<input type="submit" value="Delete Book" name="Submit" onclick="clickAction()"  />
-					<input type="submit" value="Edit Book" name="Submit" onclick="clickAction()"  />
+					<input id="FormButton" type="submit" value="Delete Book" name="Submit" onclick="clickAction()"  />
+					<input id="FormButton" type="submit" value="Edit Book" name="Submit" onclick="clickAction()"  />
 				</form>
 			</td>
 		</tr>
@@ -62,7 +74,9 @@ String newBookPage = "newBookPage.jsp";
 <%
 String newUserPage = "newUserPage.jsp";
 %>
-<input type="button" value="New User" onclick="JavaScript:window.location='<%= newUserPage %>'" style="margin: 45px; margin-bottom:0px; width: 750px;" />
+<button id="newButton" type="button" class="btn btn-primary btn-circle btn-lg" type="button" onclick="JavaScript:window.location='<%= newUserPage %>'" style="margin: 45px; margin-bottom:0px;"> 
+	<i class="glyphicon glyphicon-plus"></i>
+</button>
 
 <table id="hor-minimalist" >
 	<thead>

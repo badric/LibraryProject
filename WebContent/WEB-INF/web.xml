@@ -29,4 +29,21 @@
     <url-pattern>/customer</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>editUser</servlet-name>
+    <jsp-file>/editUserPage.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editUser</servlet-name>
+    <url-pattern>/editUser</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>editBook</servlet-name>
+    <jsp-file>/editBookPage.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editBook</servlet-name>
+    <url-pattern>/editBook</url-pattern>
+  </servlet-mapping>
 </web-app>

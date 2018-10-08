@@ -33,3 +33,21 @@
 #inputdiv{
 	margin: 40px;
 }
+
+input[type="submit"]{ 
+ 	background-color: #4eb5f1 !important;
+    color: white !important;
+    box-shadow: 0 0px 0 blue !important;
+    border-radius:2em;
+    padding:0.3em 1.2em;
+ 	margin:0 0.3em 0.3em 0;
+ box-sizing: border-box;
+ text-decoration:none;
+ font-family:'Roboto',sans-serif;
+ font-weight:300;
+ text-align:center;
+ transition: all 0.2s;
+}
+input[type="submit"]:hover{
+ background-color:#4095c6;
+}

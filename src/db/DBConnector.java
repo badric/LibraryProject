@@ -76,6 +76,51 @@ public class DBConnector {
 
 		return false;
 	}
+	
+	
+	
+	public boolean updateBookInDB(int id, String bookAsJSON) {
+		try {
+			System.out.println("Trying to write into DB");
+
+			String sqlQuery = "UPDATE book SET bookObj = ? Where idbook = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+			preparedStatement.setString(1, bookAsJSON);
+			preparedStatement.setInt(2, id);
+			System.out.println(preparedStatement.toString());
+			preparedStatement.executeUpdate();
+
+			// ResultSet rs = statement.executeQuery();
+			System.out.println("Wrote into DB");
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println("Exception: " + e.getMessage());
+		}
+
+		return false;
+	}
+	
+	public boolean updateUserInDB(int id, String userAsJSON) {
+		try {
+			System.out.println("Trying to write into DB");
+
+			String sqlQuery = "UPDATE User SET userObj = ? Where idUser = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+			preparedStatement.setString(1, userAsJSON);
+			preparedStatement.setInt(2, id);
+			preparedStatement.executeUpdate();
+
+			// ResultSet rs = statement.executeQuery();
+			System.out.println("Wrote into DB");
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.err.println("Exception: " + e.getMessage());
+		}
+
+		return false;
+	}
 
 	public Map<Integer, Book> getAllBooks() {
 		
@@ -147,25 +192,77 @@ public class DBConnector {
 		return false;
 	}
 
-	public <T extends Object> T get(String table, int id, Class<T> type) {
-		
+//	public <T> T get(String table, int id, Class<T> type) {
+//		
+//		try {
+//			//System.out.println("All Books");
+//			
+//			Statement statement = connection.createStatement();
+//			String sqlQuery = "select * from "+table+" Where id"+table+" = "+id;
+//
+//			ResultSet rs = statement.executeQuery(sqlQuery);
+//
+//			while (rs.next()) {
+//				String json = rs.getString("bookObj");
+//				
+//				Gson gson = new GsonBuilder().create();
+//				
+//				T object = (T) gson.fromJson(json, type.getClass());
+//				return object;
+//			}
+//
+//		} catch (Exception e) {
+//			System.err.println("Exception: " + e.getMessage());
+//			//e.printStackTrace();		
+//			
+//		}
+//
+//		return null;
+//	}
+	
+	public Book getBook(int id) {
 		try {
-			//System.out.println("All Books");
 			
 			Statement statement = connection.createStatement();
-			String sqlQuery = "select * from "+table+" Where id"+table+" = "+id;
+			String sqlQuery = "select * from book Where idbook = "+id;
 
 			ResultSet rs = statement.executeQuery(sqlQuery);
 
 			while (rs.next()) {
 				String json = rs.getString("bookObj");
-				
 				Gson gson = new GsonBuilder().create();
-				return type.cast(gson.fromJson(json, type.getClass()));
+				
+				return gson.fromJson(json, Book.class);
 			}
 
 		} catch (Exception e) {
 			System.err.println("Exception: " + e.getMessage());
+			//e.printStackTrace();		
+			
+		}
+
+		return null;
+	}
+	
+	public User getUser(int id) {
+		try {
+			
+			Statement statement = connection.createStatement();
+			String sqlQuery = "select * from User Where idUser = "+id;
+
+			ResultSet rs = statement.executeQuery(sqlQuery);
+
+			while (rs.next()) {
+				String json = rs.getString("userObj");
+				Gson gson = new GsonBuilder().create();
+				
+				return gson.fromJson(json, User.class);
+			}
+
+		} catch (Exception e) {
+			System.err.println("Exception: " + e.getMessage());
+			//e.printStackTrace();		
+			
 		}
 
 		return null;
