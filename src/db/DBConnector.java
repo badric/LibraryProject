@@ -326,13 +326,14 @@ public class DBConnector {
 
 		for (User u : allListedUsers.values()) {
 			if (u.getBookIds() != null)
-				u.getBookIds().forEach(id -> mapAvailable.remove(id));
+				for (int bookId : u.getBookIds())
+					mapAvailable.remove(bookId);
 		}
 		return mapAvailable;
 	}
 
 	public Map<Integer, Book> listBorrowedBooks(User u) throws SQLException {
-		HashMap<Integer, Book> mapIds = new HashMap<>();
+		HashMap<Integer, Book> mapIds = new HashMap<Integer, Book>();
 		List<Integer> bookIds = u.getBookIds();
 
 		if (bookIds == null)
