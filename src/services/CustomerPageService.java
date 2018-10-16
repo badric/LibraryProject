@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import db.DBConnector;
-import javafx.util.Pair;
 import model.Book;
 import model.User;
 
