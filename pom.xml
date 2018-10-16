@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>LibraryProject</groupId>
 	<artifactId>LibraryProject</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<packaging>war</packaging>
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -30,6 +30,7 @@
 				<version>2.22.1</version>
 			</plugin>
 		</plugins>
+		<finalName>lp</finalName>
 	</build>
 	<dependencies>
 		<dependency>
