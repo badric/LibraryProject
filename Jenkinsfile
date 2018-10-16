@@ -21,7 +21,9 @@ pipeline {
             }
         }
         stage('deploy'){
-        	sh "curl -v -u admin:password -T "target/lp.war" 'http://localhost:1080/manager/text/deploy?path=/LibraryProject&update=true'"
-        }
+            steps {
+        	    sh "curl -v -u admin:password -T 'target/lp.war' 'http://localhost:1080/manager/text/deploy?path=/LibraryProject&update=true'"
+            }
+       }
     }
 }
