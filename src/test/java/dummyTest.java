@@ -1,7 +1,5 @@
 package test.java;
 
-import static org.junit.Assert.*;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,14 +10,12 @@ public class dummyTest {
 //		fail("Not yet implemented");
 //	}
 
-	
 	@Test
 	public void testShouldBeTrueDUMMYTEST() {
-		
+
 		Assert.assertEquals(2, 2);
-		Assert.assertNotSame(2,3);
-		
+		Assert.assertNotSame(2, 3);
+
 	}
-	
-	
+
 }
